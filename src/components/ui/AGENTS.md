@@ -60,4 +60,36 @@ export { Button, button }
 ## 5. Estilização
 
 - Utilize apenas classes utilitárias do Tailwind CSS.
-- Utilize as variáveis de design configuradas em `tailwind.config.js` (ex: `bg-accent-green`, `rounded-m`).
+- Utilize as variáveis de design configuradas em `tailwind.config.js` (ex: `bg-accent-green`, `rounded-none`).
+- **Fontes**: Use `font-sans` para texto padrão (sistema) e `font-mono` para código/texto técnico (JetBrains Mono).
+
+## 6. Componentes Complexos (Slots)
+
+Para componentes com múltiplas partes (ex: `Toggle` com track e thumb), utilize a funcionalidade de `slots` do `tailwind-variants`:
+
+```tsx
+const toggle = tv({
+  slots: {
+    root: '...',
+    track: '...',
+    thumb: '...',
+  }
+})
+
+const { root, track, thumb } = toggle()
+```
+
+## 7. Comportamento e Acessibilidade
+
+Para componentes que exigem estado ou comportamento complexo (toggles, dialogs, dropdowns), utilize os primitivos do **`@base-ui/react`**.
+
+## 8. Server Components e Sintaxe (Shiki)
+
+Componentes de visualização de código (`CodeBlock`) devem ser **Server Components** e utilizar a biblioteca **`shiki`** com o tema `vesper` para garantir performance e realce de sintaxe de alta qualidade sem sobrecarregar o cliente.
+## 9. Qualidade de Código (Biome)
+
+Utilizamos o **Biome** para linting e formatação. Sempre mantenha o código limpo:
+
+- **Formatação**: Execute `pnpm format` antes de commitar.
+- **Linting**: Execute `pnpm lint` para garantir que não existam avisos ou erros.
+- **JSX Comments**: Nunca use `//` diretamente dentro de tags JSX; envolva-os com `{/* ... */}` ou use tags semânticas se for para exibição.

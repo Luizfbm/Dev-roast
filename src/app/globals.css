@@ -4,32 +4,31 @@
 
 @layer base {
   :root {
-    --background: #F2F3F0;
-    --foreground: #111111;
-    --primary: #FF8400;
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+    --primary: #ff8400;
     --primary-foreground: #111111;
-    --secondary: #E7E8E5;
-    --secondary-foreground: #111111;
-    --accent-green: #10B981;
-    --accent-red: #EF4444;
-    --accent-amber: #F59E0B;
-    --muted: #F2F3F0;
-    --muted-foreground: #666666;
-    --border: #CBCCC9;
+    --secondary: #2e2e2e;
+    --secondary-foreground: #ffffff;
+    --accent-green: #10b981;
+    --accent-red: #ef4444;
+    --accent-amber: #f59e0b;
+    --muted: #1a1a1a;
+    --muted-foreground: #6b7280;
+    --border: #2a2a2a;
+    --bg-page: #0a0a0a;
+    --bg-input: #111111;
+    --border-primary: #2a2a2a;
     --radius-m: 16px;
+    --radius-none: 0px;
     --radius-pill: 999px;
   }
 
+  /* Since the design is dark by default, we apply the same for .dark or simplify */
   .dark {
-    --background: #111111;
-    --foreground: #FFFFFF;
-    --primary: #FF8400;
-    --primary-foreground: #111111;
-    --secondary: #2E2E2E;
-    --secondary-foreground: #FFFFFF;
-    --muted: #2E2E2E;
-    --muted-foreground: #B8B9B6;
-    --border: #2E2E2E;
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+    --border: #2a2a2a;
   }
 }
 

@@ -1,7 +1,12 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { CodeBlock } from "@/components/ui/code-block";
+import { NavLink, NavLogo, Navbar } from "@/components/ui/navbar";
+import { Toggle } from "@/components/ui/toggle";
 
 export default function ComponentsPage() {
-  const variants = [
+  const buttonVariants = [
     "roast",
     "primary",
     "secondary",
@@ -10,88 +15,134 @@ export default function ComponentsPage() {
     "ghost",
     "link",
   ] as const;
-  const sizes = ["sm", "default", "lg", "icon"] as const;
+
+  const badgeVariants = [
+    "default",
+    "destructive",
+    "warning",
+    "success",
+  ] as const;
+
+  const exampleCode = `function calculateRoast(code: string) {
+  const complexity = analyze(code);
+  return complexity > 10 ? "brutal" : "soft";
+}`;
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-8 md:p-20 font-sans">
-      <header className="mb-12 border-b border-border pb-6">
-        <h1 className="text-4xl font-bold font-mono tracking-tighter mb-2">
-          UI Kit / Components
-        </h1>
-        <p className="text-muted-foreground">
-          Biblioteca de componentes visuais do projeto Dev-roast.
-        </p>
-      </header>
+    <div className="min-h-screen bg-bg-page text-text-primary pb-20 font-sans">
+      <Navbar>
+        <NavLogo>
+          <span className="text-accent-green font-bold font-mono text-xl">
+            {">"}
+          </span>
+          <span className="font-mono font-medium text-[18px]">devroast</span>
+        </NavLogo>
+        <div className="flex items-center gap-8">
+          <NavLink>leaderboard</NavLink>
+          <Button variant="outline" size="sm">
+            Login
+          </Button>
+        </div>
+      </Navbar>
 
-      <main className="space-y-16">
-        {/* Button Section */}
-        <section className="space-y-8">
-          <div className="space-y-1">
-            <h2 className="text-2xl font-semibold font-mono underline decoration-primary decoration-4 underline-offset-4">
-              Buttons
+      <div className="max-w-6xl mx-auto p-8 md:p-20 space-y-16">
+        <header className="space-y-2">
+          <h1 className="text-4xl font-bold font-mono tracking-tighter">
+            UI Kit / Components
+          </h1>
+          <p className="text-text-secondary">
+            Biblioteca de componentes visuais do projeto Dev-roast.
+          </p>
+        </header>
+
+        <main className="space-y-16">
+          {/* Buttons */}
+          <section className="space-y-8">
+            <h2 className="text-2xl font-semibold font-mono underline decoration-accent-green decoration-4 underline-offset-8">
+              {/* buttons */}
             </h2>
-            <p className="text-sm text-muted-foreground">
-              Componente de botão flexível com suporte a variantes e tamanhos.
-            </p>
-          </div>
-
-          <div className="grid gap-12">
-            {/* Variants */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-                Variants
-              </h3>
-              <div className="flex flex-wrap gap-4 items-center">
-                {variants.map((v) => (
-                  <div key={v} className="flex flex-col items-center gap-2">
-                    <Button variant={v}>
-                      {v.charAt(0).toUpperCase() + v.slice(1)}
-                    </Button>
-                    <span className="text-[10px] uppercase font-mono text-muted-foreground">
-                      {v}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Sizes */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-                Sizes
-              </h3>
-              <div className="flex flex-wrap gap-6 items-end">
-                {sizes.map((s) => (
-                  <div key={s} className="flex flex-col items-center gap-2">
-                    <Button variant="roast" size={s}>
-                      {s === "icon" ? "★" : `Size ${s}`}
-                    </Button>
-                    <span className="text-[10px] uppercase font-mono text-muted-foreground">
-                      {s}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Combined / States */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-                States
-              </h3>
-              <div className="flex flex-wrap gap-4 items-center">
-                <Button variant="roast">Normal</Button>
-                <Button variant="roast" disabled>
-                  Disabled
+            <div className="flex flex-wrap gap-4">
+              {buttonVariants.map((v) => (
+                <Button key={v} variant={v}>
+                  {v}
                 </Button>
-                <Button variant="outline" className="opacity-70">
-                  Hover (Manual)
-                </Button>
-              </div>
+              ))}
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+
+          {/* Badges */}
+          <section className="space-y-8">
+            <h2 className="text-2xl font-semibold font-mono underline decoration-accent-green decoration-4 underline-offset-8">
+              {/* status_badges */}
+            </h2>
+            <div className="flex flex-wrap gap-6">
+              {badgeVariants.map((v) => (
+                <Badge key={v} variant={v}>
+                  {v}
+                </Badge>
+              ))}
+            </div>
+          </section>
+
+          {/* Toggles */}
+          <section className="space-y-8">
+            <h2 className="text-2xl font-semibold font-mono underline decoration-accent-green decoration-4 underline-offset-8">
+              {/* toggles */}
+            </h2>
+            <div className="flex gap-8">
+              <Toggle label="roast mode" defaultChecked />
+              <Toggle label="roast mode" />
+            </div>
+          </section>
+
+          {/* Cards */}
+          <section className="space-y-8">
+            <h2 className="text-2xl font-semibold font-mono underline decoration-accent-green decoration-4 underline-offset-8">
+              {/* cards */}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <div className="flex items-center gap-2">
+                  <span className="text-accent-red font-bold font-mono text-lg">
+                    {"//"}
+                  </span>
+                  <h3 className="font-mono font-bold">Insecure Password</h3>
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Your code is using md5 for hashing passwords. That's so 2005.
+                  At least use bcrypt or argon2.
+                </p>
+                <Badge variant="destructive">critical_security_risk</Badge>
+              </Card>
+              <Card>
+                <div className="flex items-center gap-2">
+                  <span className="text-accent-amber font-bold font-mono text-lg">
+                    {"//"}
+                  </span>
+                  <h3 className="font-mono font-bold">Unused Variables</h3>
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Variables that are declared but never used are just clutter.
+                  Clean it up.
+                </p>
+                <Badge variant="warning">warning</Badge>
+              </Card>
+            </div>
+          </section>
+
+          {/* Code Blocks */}
+          <section className="space-y-8">
+            <h2 className="text-2xl font-semibold font-mono underline decoration-accent-green decoration-4 underline-offset-8">
+              {/* code_blocks */}
+            </h2>
+            <CodeBlock
+              code={exampleCode}
+              filename="roast-engine.ts"
+              className="max-w-2xl"
+            />
+          </section>
+        </main>
+      </div>
     </div>
   );
 }

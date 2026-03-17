@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8 p-8">
       <h1 className="text-2xl font-bold font-mono">Component Gallery</h1>
-      
+
       <div className="flex flex-wrap gap-4">
         <Button variant="roast">Roast Mode</Button>
         <Button variant="secondary">Secondary</Button>
