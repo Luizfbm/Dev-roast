@@ -24,7 +24,6 @@
     --radius-pill: 999px;
   }
 
-  /* Since the design is dark by default, we apply the same for .dark or simplify */
   .dark {
     --background: #0a0a0a;
     --foreground: #fafafa;

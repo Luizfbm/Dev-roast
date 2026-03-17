@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { type VariantProps, tv } from "tailwind-variants";
 
 const navbar = tv({
-  base: "flex h-14 w-full items-center justify-between border-b border-border-primary bg-bg-page px-10",
+  base: "flex h-14 w-full items-center justify-between border-b border-border-primary bg-bg-page px-6",
 });
 
 export interface NavbarProps
@@ -21,7 +21,9 @@ const NavLogo = ({ children, className, ...props }: ComponentProps<"div">) => (
 
 const NavLink = ({ children, className, ...props }: ComponentProps<"span">) => (
   <span
-    className={`font-mono text-[13px] text-text-secondary transition-colors hover:text-text-primary cursor-pointer ${className ?? ""}`}
+    className={`font-mono text-[13px] text-text-secondary transition-colors hover:text-text-primary cursor-pointer ${
+      className ?? ""
+    }`}
     {...props}
   >
     {children}

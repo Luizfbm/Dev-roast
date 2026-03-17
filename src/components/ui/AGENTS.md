@@ -93,3 +93,10 @@ Utilizamos o **Biome** para linting e formatação. Sempre mantenha o código li
 - **Formatação**: Execute `pnpm format` antes de commitar.
 - **Linting**: Execute `pnpm lint` para garantir que não existam avisos ou erros.
 - **JSX Comments**: Nunca use `//` diretamente dentro de tags JSX; envolva-os com `{/* ... */}` ou use tags semânticas se for para exibição.
+
+## 10. Sincronização com Pencil
+
+Todos os componentes nesta pasta devem manter **100% de paridade** com a página "Component Library" no Pencil. Isso inclui:
+- **Espaçamento**: Use valores exatos de padding e gap do design.
+- **Tipografia**: Siga a regra: `font-mono` (JetBrains Mono) para componentes técnicos/temáticos e `font-sans` para texto descritivo.
+- **Cores**: Use apenas os tokens definidos em `design.pen` mapeados no `globals.css` (ex: `text-accent-green`, `border-border-primary`).

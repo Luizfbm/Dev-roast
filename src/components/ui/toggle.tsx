@@ -23,9 +23,10 @@ const toggle = tv({
 });
 
 export interface ToggleProps
-  extends React.ComponentPropsWithoutRef<typeof Switch.Root>,
+  extends Omit<React.ComponentPropsWithoutRef<typeof Switch.Root>, "className">,
     VariantProps<typeof toggle> {
   label?: string;
+  className?: string;
 }
 
 const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
@@ -33,12 +34,12 @@ const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
     const { root, track, thumb, label: labelStyle } = toggle();
 
     return (
-      <div className={root({ className })}>
-        <Switch.Root ref={ref} className={track()} {...props}>
+      <Switch.Root ref={ref} className={root({ className })} {...props}>
+        <div className={track()}>
           <Switch.Thumb className={thumb()} />
-        </Switch.Root>
+        </div>
         {label && <span className={labelStyle()}>{label}</span>}
-      </div>
+      </Switch.Root>
     );
   },
 );
