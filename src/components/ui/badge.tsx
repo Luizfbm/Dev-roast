@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { type VariantProps, tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 const badge = tv({
   base: "inline-flex items-center gap-2 font-mono text-xs font-normal transition-colors",

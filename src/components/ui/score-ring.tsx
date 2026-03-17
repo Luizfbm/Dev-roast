@@ -17,7 +17,13 @@ export interface ScoreRingProps {
 }
 
 export const ScoreRing = ({ score, max = 10, className }: ScoreRingProps) => {
-  const { container, outer, inner, score: scoreStyle, max: maxStyle } = scoreRing();
+  const {
+    container,
+    outer,
+    inner,
+    score: scoreStyle,
+    max: maxStyle,
+  } = scoreRing();
 
   // Angular gradient logic (approximate for the arc)
   const percentage = (score / max) * 100;

@@ -2,7 +2,7 @@
 
 import { Switch } from "@base-ui/react/switch";
 import * as React from "react";
-import { type VariantProps, tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 const toggle = tv({
   slots: {

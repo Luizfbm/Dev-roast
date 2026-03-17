@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { type VariantProps, tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 const diffLine = tv({
   base: "flex gap-4 font-mono text-[13px] py-2 px-4 whitespace-pre",

@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { type VariantProps, tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 const navbar = tv({
   base: "flex h-14 w-full items-center justify-between border-b border-border-primary bg-bg-page px-6",
@@ -30,4 +30,4 @@ const NavLink = ({ children, className, ...props }: ComponentProps<"span">) => (
   </span>
 );
 
-export { Navbar, NavLogo, NavLink, navbar };
+export { Navbar, NavLink, NavLogo, navbar };

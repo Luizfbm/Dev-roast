@@ -18,7 +18,12 @@ export default function ComponentsPage() {
     "link",
   ] as const;
 
-  const badgeVariants = ["default", "destructive", "warning", "success"] as const;
+  const badgeVariants = [
+    "default",
+    "destructive",
+    "warning",
+    "success",
+  ] as const;
 
   const exampleCode = `function calculateTotal(items) {
   var total = 0;
@@ -32,7 +37,9 @@ export default function ComponentsPage() {
     <div className="min-h-screen bg-bg-page text-text-primary pb-20 font-mono">
       <Navbar>
         <NavLogo>
-          <span className="text-accent-green font-bold text-xl mr-2">{">"}</span>
+          <span className="text-accent-green font-bold text-xl mr-2">
+            {">"}
+          </span>
           <span className="font-medium text-[18px]">devroast</span>
         </NavLogo>
         <div className="flex items-center gap-8">
@@ -58,18 +65,22 @@ export default function ComponentsPage() {
           {/* Typography */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                typography
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">typography</h2>
             </div>
             <div className="space-y-5">
               <h3 className="text-4xl font-bold font-mono">
                 paste your code. get roasted.
               </h3>
               <div className="flex items-center gap-2">
-                <span className="text-accent-green font-bold text-sm">{"//"}</span>
-                <span className="text-sm font-bold font-mono">detailed_analysis</span>
+                <span className="text-accent-green font-bold text-sm">
+                  {"//"}
+                </span>
+                <span className="text-sm font-bold font-mono">
+                  detailed_analysis
+                </span>
               </div>
               <p className="text-sm text-text-secondary font-mono">
                 description text sample
@@ -86,10 +97,10 @@ export default function ComponentsPage() {
           {/* Buttons */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                buttons
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">buttons</h2>
             </div>
             <div className="flex flex-wrap gap-4 items-end">
               <Button variant="primary">$ roast_my_code</Button>
@@ -105,10 +116,10 @@ export default function ComponentsPage() {
           {/* Toggle */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                toggle
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">toggle</h2>
             </div>
             <div className="flex gap-8">
               <Toggle label="roast mode" defaultChecked />
@@ -119,10 +130,10 @@ export default function ComponentsPage() {
           {/* Badges */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                badge_status
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">badge_status</h2>
             </div>
             <div className="flex flex-wrap gap-6">
               <Badge variant="destructive">critical</Badge>
@@ -135,10 +146,10 @@ export default function ComponentsPage() {
           {/* Cards */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                cards
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">cards</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <Card className="max-w-[480px]">
@@ -163,10 +174,10 @@ export default function ComponentsPage() {
           {/* Code Blocks */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                code_block
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">code_block</h2>
             </div>
             <CodeBlock
               code={exampleCode}
@@ -178,10 +189,10 @@ export default function ComponentsPage() {
           {/* Diff Lines */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                diff_line
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">diff_line</h2>
             </div>
             <div className="border border-border-primary overflow-hidden max-w-xl">
               <DiffLine variant="removed" code="var total = 0;" />
@@ -196,10 +207,10 @@ export default function ComponentsPage() {
           {/* Table Row */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                table_row
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">table_row</h2>
             </div>
             <div className="border-t border-border-primary">
               <TableRow
@@ -220,10 +231,10 @@ export default function ComponentsPage() {
           {/* Navbar */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                navbar
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">navbar</h2>
             </div>
             <div className="border border-border-primary overflow-hidden">
               <Navbar>
@@ -246,10 +257,10 @@ export default function ComponentsPage() {
           {/* Score Ring */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">{"//"}</span>
-              <h2 className="text-sm font-bold font-mono">
-                score_ring
-              </h2>
+              <span className="text-accent-green font-bold text-sm">
+                {"//"}
+              </span>
+              <h2 className="text-sm font-bold font-mono">score_ring</h2>
             </div>
             <div className="flex gap-12 items-center">
               <ScoreRing score={3.5} max={10} />

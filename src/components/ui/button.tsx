@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { type VariantProps, tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 const button = tv({
   base: [
@@ -9,7 +9,8 @@ const button = tv({
   ],
   variants: {
     variant: {
-      primary: "bg-accent-green text-[#0A0A0A] font-medium hover:bg-accent-green/90",
+      primary:
+        "bg-accent-green text-[#0A0A0A] font-medium hover:bg-accent-green/90",
       secondary:
         "border border-border-primary bg-transparent text-text-primary hover:bg-secondary",
       destructive: "bg-accent-red text-white hover:bg-accent-red/90",

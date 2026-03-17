@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { type VariantProps, tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 const card = tv({
   base: "flex flex-col gap-3 border border-border-primary bg-bg-page p-5",
