@@ -30,11 +30,18 @@ export interface ToggleProps
 }
 
 const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
-  ({ className, label, ...props }, ref) => {
+  ({ className, label, id, ...props }, ref) => {
+    const fallbackId = React.useId();
+    const safeId = id ?? fallbackId;
     const { root, track, thumb, label: labelStyle } = toggle();
 
     return (
-      <Switch.Root ref={ref} className={root({ className })} {...props}>
+      <Switch.Root
+        id={safeId}
+        ref={ref}
+        className={root({ className })}
+        {...props}
+      >
         <div className={track()}>
           <Switch.Thumb className={thumb()} />
         </div>
