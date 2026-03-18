@@ -9,22 +9,6 @@ import { TableRow } from "@/components/ui/table-row";
 import { Toggle } from "@/components/ui/toggle";
 
 export default function ComponentsPage() {
-  const buttonVariants = [
-    "primary",
-    "secondary",
-    "destructive",
-    "outline",
-    "ghost",
-    "link",
-  ] as const;
-
-  const badgeVariants = [
-    "default",
-    "destructive",
-    "warning",
-    "success",
-  ] as const;
-
   const exampleCode = `function calculateTotal(items) {
   var total = 0;
   for (let i = 0; i < items.length; i++) {
