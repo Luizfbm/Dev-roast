@@ -33,7 +33,7 @@ const diffCode = tv({
   variants: {
     variant: {
       added: "text-text-primary",
-      removed: "text-text-secondary line-through opacity-50",
+      removed: "text-text-secondary",
       context: "text-text-secondary",
     },
   },

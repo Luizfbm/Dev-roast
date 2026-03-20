@@ -123,7 +123,7 @@ export default function ComponentsPage() {
               <Badge variant="destructive">critical</Badge>
               <Badge variant="warning">warning</Badge>
               <Badge variant="success">good</Badge>
-              <Badge variant="destructive">needs_serious_help</Badge>
+              <Badge variant="destructive" size="lg">needs_serious_help</Badge>
             </div>
           </section>
 

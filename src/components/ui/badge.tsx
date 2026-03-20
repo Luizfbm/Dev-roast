@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const badge = tv({
-  base: "inline-flex items-center gap-2 font-mono text-xs font-normal transition-colors",
+  base: "inline-flex items-center gap-2 font-mono font-normal transition-colors",
   variants: {
     variant: {
       default: "text-text-primary",
@@ -10,9 +10,14 @@ const badge = tv({
       warning: "text-accent-amber",
       success: "text-accent-green",
     },
+    size: {
+      default: "text-xs",
+      lg: "text-[13px]",
+    },
   },
   defaultVariants: {
     variant: "default",
+    size: "default",
   },
 });
 

@@ -12,7 +12,7 @@ const toggle = tv({
       "bg-border-primary group-data-[state=checked]:bg-accent-green",
     ],
     thumb: [
-      "h-4 w-4 rounded-full bg-muted-foreground transition-transform",
+      "h-4 w-4 rounded-full bg-[#6B7280] transition-transform",
       "group-data-[state=checked]:translate-x-[18px] group-data-[state=checked]:bg-[#0A0A0A]",
     ],
     label: [

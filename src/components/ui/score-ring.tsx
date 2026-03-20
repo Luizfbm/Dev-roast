@@ -35,7 +35,7 @@ export const ScoreRing = ({ score, max = 10, className }: ScoreRingProps) => {
       <div
         className="absolute inset-0 rounded-full"
         style={{
-          background: `conic-gradient(from 180deg, var(--accent-green) 0%, var(--accent-amber) ${percentage}%, transparent ${percentage + 1}%)`,
+          background: `conic-gradient(from 180deg, var(--color-accent-green) 0%, var(--color-accent-amber) ${percentage}%, transparent ${percentage + 1}%)`,
           mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           WebkitMask:
             "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
