@@ -15,27 +15,26 @@ export function EditorBody({
 }: EditorBodyProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const preRef = useRef<HTMLDivElement>(null);
+  const lineNumbersRef = useRef<HTMLDivElement>(null);
 
   // Sync scroll
   const handleScroll = () => {
-    if (textareaRef.current && preRef.current) {
+    if (textareaRef.current && preRef.current && lineNumbersRef.current) {
       preRef.current.scrollTop = textareaRef.current.scrollTop;
       preRef.current.scrollLeft = textareaRef.current.scrollLeft;
+      lineNumbersRef.current.scrollTop = textareaRef.current.scrollTop;
     }
   };
 
-  // Handle Tab key
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Tab") {
       e.preventDefault();
       const start = e.currentTarget.selectionStart;
       const end = e.currentTarget.selectionEnd;
 
-      // Insert 2 spaces
       const newValue = code.substring(0, start) + "  " + code.substring(end);
       onChange(newValue);
 
-      // Set cursor position after update
       setTimeout(() => {
         if (textareaRef.current) {
           textareaRef.current.selectionStart =
@@ -48,13 +47,16 @@ export function EditorBody({
   const lineCount = Math.max(code.split("\n").length, 16);
 
   return (
-    <div className="flex flex-1 overflow-hidden relative min-h-[320px]">
-      {/* Line numbers */}
-      <div className="flex flex-col items-end gap-0 px-3 py-4 border-r border-border-primary bg-secondary/10 select-none min-w-[48px] z-10">
+    <div className="flex flex-1 max-h-[512px] min-h-[320px] overflow-hidden relative">
+      {/* Line numbers (Scrollable but hidden scrollbar) */}
+      <div
+        ref={lineNumbersRef}
+        className="flex flex-col items-end gap-0 px-3 py-4 border-r border-border-primary bg-secondary/10 select-none min-w-[48px] z-10 overflow-hidden"
+      >
         {Array.from({ length: lineCount }).map((_, i) => (
           <span
             key={i}
-            className="text-text-tertiary text-[12px] leading-5 font-mono h-5"
+            className="text-text-tertiary text-[12px] leading-5 font-mono h-5 shrink-0"
           >
             {i + 1}
           </span>
@@ -63,10 +65,10 @@ export function EditorBody({
 
       {/* Editor Layers */}
       <div className="flex-1 relative overflow-hidden bg-bg-input">
-        {/* Layer 1: Highlighted Code (via Shiki) */}
+        {/* Layer 1: Highlighted Code */}
         <div
           ref={preRef}
-          className="absolute inset-0 p-4 font-mono text-[12px] leading-5 pointer-events-none overflow-hidden whitespace-pre text-text-primary"
+          className="absolute inset-0 p-4 font-mono text-[12px] leading-5 pointer-events-none overflow-hidden whitespace-pre text-text-primary scroll-smooth"
           dangerouslySetInnerHTML={{ __html: highlightedHtml }}
           aria-hidden="true"
         />
@@ -82,7 +84,7 @@ export function EditorBody({
           autoCapitalize="off"
           autoComplete="off"
           autoCorrect="off"
-          className="absolute inset-0 w-full h-full p-4 bg-transparent text-transparent caret-white font-mono text-[12px] leading-5 resize-none outline-none z-20 overflow-auto whitespace-pre"
+          className="absolute inset-0 w-full h-full p-4 bg-transparent text-transparent caret-white font-mono text-[12px] leading-5 resize-none outline-none z-20 overflow-auto whitespace-pre custom-scrollbar"
           placeholder="// paste your code here..."
         />
       </div>
