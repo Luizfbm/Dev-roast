@@ -9,15 +9,15 @@ const toggle = tv({
     root: "group inline-flex items-center gap-3 cursor-pointer select-none",
     track: [
       "flex h-[22px] w-10 shrink-0 items-center rounded-full p-[3px] transition-colors",
-      "bg-border-primary group-data-[state=checked]:bg-accent-green",
+      "bg-border-primary group-data-[checked]:bg-accent-green",
     ],
     thumb: [
       "h-4 w-4 rounded-full bg-[#6B7280] transition-transform",
-      "group-data-[state=checked]:translate-x-[18px] group-data-[state=checked]:bg-[#0A0A0A]",
+      "group-data-[checked]:translate-x-[18px] group-data-[checked]:bg-[#0A0A0A]",
     ],
     label: [
       "font-mono text-xs transition-colors",
-      "text-text-secondary group-data-[state=checked]:text-accent-green",
+      "text-text-secondary group-data-[checked]:text-accent-green",
     ],
   },
 });
