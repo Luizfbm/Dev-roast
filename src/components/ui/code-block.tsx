@@ -1,7 +1,9 @@
 import { codeToHtml } from "shiki";
 import { tv } from "tailwind-variants";
+import { cn } from "@/utils/cn";
+import type { ReactNode } from "react";
 
-const codeBlock = tv({
+const codeBlockStyles = tv({
   slots: {
     base: "relative w-full overflow-hidden border border-border-primary bg-bg-input font-mono text-[13px]",
     header:
@@ -16,60 +18,85 @@ const codeBlock = tv({
   },
 });
 
+const {
+  base,
+  header,
+  dots,
+  dot,
+  filename: filenameStyle,
+  body,
+  lineNumbers,
+  content: contentStyle,
+} = codeBlockStyles();
+
 interface CodeBlockProps {
-  code: string;
-  lang?: string;
-  filename?: string;
+  children: ReactNode;
   className?: string;
 }
 
-/**
- * Server Component representing a code block with syntax highlighting.
- */
-export async function CodeBlock({
-  code,
-  lang = "typescript",
+export function CodeBlock({ children, className }: CodeBlockProps) {
+  return <div className={base({ className })}>{children}</div>;
+}
+
+interface CodeBlockHeaderProps {
+  filename?: string;
+  showDots?: boolean;
+  className?: string;
+}
+
+export function CodeBlockHeader({
   filename,
+  showDots = true,
   className,
-}: CodeBlockProps) {
-  const html = await codeToHtml(code, {
-    lang,
-    theme: "vesper",
-  });
-
-  const {
-    base,
-    header,
-    dots,
-    dot,
-    filename: filenameStyle,
-    body,
-    lineNumbers,
-    content,
-  } = codeBlock();
-
-  const linesCount = code.trim().split("\n").length;
-
+}: CodeBlockHeaderProps) {
   return (
-    <div className={base({ className })}>
-      <div className={header()}>
+    <div className={header({ className })}>
+      {showDots && (
         <div className={dots()}>
           <div className={dot({ className: "bg-[#EF4444]" })} />
           <div className={dot({ className: "bg-[#F59E0B]" })} />
           <div className={dot({ className: "bg-[#10B981]" })} />
         </div>
-        {filename && <span className={filenameStyle()}>{filename}</span>}
+      )}
+      {filename && <span className={filenameStyle()}>{filename}</span>}
+    </div>
+  );
+}
+
+interface CodeBlockContentProps {
+  code: string;
+  lang?: string;
+  className?: string;
+}
+
+/**
+ * Server Component representing the code content with syntax highlighting.
+ */
+export async function CodeBlockContent({
+  code,
+  lang = "typescript",
+  className,
+}: CodeBlockContentProps) {
+  const html = await codeToHtml(code, {
+    lang,
+    theme: "vesper",
+  });
+
+  const linesCount = code.trim().split("\n").length;
+
+  return (
+    <div className={body({ className })}>
+      <div className={lineNumbers()}>
+        {Array.from({ length: linesCount }).map((_, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: lines are static
+          <span key={i}>{i + 1}</span>
+        ))}
       </div>
-      <div className={body()}>
-        <div className={lineNumbers()}>
-          {Array.from({ length: linesCount }).map((_, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: lines are static
-            <span key={i}>{i + 1}</span>
-          ))}
-        </div>
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output is trusted code highlighting */}
-        <div className={content()} dangerouslySetInnerHTML={{ __html: html }} />
-      </div>
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output is trusted code highlighting */}
+      <div
+        className={contentStyle()}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     </div>
   );
 }

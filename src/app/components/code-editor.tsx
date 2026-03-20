@@ -17,6 +17,8 @@ for (var i = 0; i < items.length; i++) {
 }
 console.log("total is: " + total);`;
 
+const MAX_CHARS = 5000;
+
 interface CodeEditorProps {
   onSubmit?: (code: string, lang: string, roastMode: boolean) => void;
 }
@@ -56,6 +58,8 @@ export function CodeEditor({ onSubmit }: CodeEditorProps) {
     onSubmit?.(finalCode, activeLang, roastMode);
   };
 
+  const isOverLimit = code.length > MAX_CHARS;
+
   return (
     <div className="w-full max-w-[780px] flex flex-col gap-0 border border-border-primary bg-bg-input overflow-hidden shadow-2xl rounded-none">
       <EditorHeader
@@ -76,6 +80,9 @@ export function CodeEditor({ onSubmit }: CodeEditorProps) {
           onRoastModeChange={setRoastMode}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
+          charCount={code.length}
+          maxChars={MAX_CHARS}
+          isDisabled={isOverLimit || isSubmitting}
         />
       </div>
     </div>

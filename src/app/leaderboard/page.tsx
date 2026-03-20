@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { CodeBlock, CodeBlockContent } from "@/components/ui/code-block";
 import { cn } from "@/utils/cn";
 import { ChevronRight, Trophy } from "lucide-react";
 import Link from "next/link";
@@ -143,23 +144,12 @@ export default function LeaderboardPage() {
               </div>
 
               {/* Code Snippet Area */}
-              <div className="flex overflow-hidden bg-bg-input group-hover:opacity-90 transition-opacity">
-                {/* Line Numbers Simulation */}
-                <div className="flex flex-col items-end gap-0.5 px-3 py-4 border-r border-border-primary bg-bg-surface/30 select-none min-w-[40px]">
-                  {entry.codeSnippet.split("\n").map((_, i) => (
-                    <span
-                      key={i}
-                      className="text-text-tertiary text-[10px] font-mono leading-tight h-4"
-                    >
-                      {i + 1}
-                    </span>
-                  ))}
-                </div>
-                {/* Code Content */}
-                <div className="p-4 flex-1 overflow-x-auto whitespace-pre font-mono text-[13px] leading-tight text-text-secondary group-hover:text-text-primary transition-colors selection:bg-accent-green/20">
-                  <code>{entry.codeSnippet}</code>
-                </div>
-              </div>
+              <CodeBlock className="border-none shadow-none bg-transparent border-t border-border-primary rounded-none">
+                <CodeBlockContent
+                  code={entry.codeSnippet}
+                  lang={entry.language}
+                />
+              </CodeBlock>
             </div>
           ))}
         </section>

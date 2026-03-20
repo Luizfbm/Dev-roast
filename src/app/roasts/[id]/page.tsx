@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBlock, CodeBlockContent, CodeBlockHeader } from "@/components/ui/code-block";
 
 export const dynamic = "force-dynamic";
 
@@ -123,9 +123,10 @@ export default async function RoastResultPage({
               {roast.language.toUpperCase()} ({roast.lineCount} lines)
             </Badge>
           </div>
-          <div className="border border-border-primary overflow-hidden shadow-xl">
-            <CodeBlock code={roast.code} lang={roast.language} />
-          </div>
+          <CodeBlock className="shadow-xl">
+            <CodeBlockHeader />
+            <CodeBlockContent code={roast.code} lang={roast.language} />
+          </CodeBlock>
         </div>
 
         {/* Suggested Fix */}
@@ -137,9 +138,10 @@ export default async function RoastResultPage({
                 suggested_redemption
               </h2>
             </div>
-            <div className="border border-border-primary overflow-hidden shadow-xl">
-              <CodeBlock code={roast.suggestedFix} lang={roast.language} />
-            </div>
+            <CodeBlock className="shadow-xl">
+              <CodeBlockHeader />
+              <CodeBlockContent code={roast.suggestedFix} lang={roast.language} />
+            </CodeBlock>
           </div>
         )}
 

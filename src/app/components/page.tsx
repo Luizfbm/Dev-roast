@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CodeBlock } from "@/components/ui/code-block";
+import { CodeBlock, CodeBlockContent, CodeBlockHeader } from "@/components/ui/code-block";
 import { DiffLine } from "@/components/ui/diff-line";
 import { Navbar, NavLink, NavLogo } from "@/components/ui/navbar";
 import { ScoreRing } from "@/components/ui/score-ring";
@@ -174,11 +174,10 @@ export default function ComponentsPage() {
               </span>
               <h2 className="text-sm font-bold font-mono">code_block</h2>
             </div>
-            <CodeBlock
-              code={exampleCode}
-              filename="calculate.js"
-              className="max-w-xl"
-            />
+            <CodeBlock className="max-w-xl">
+              <CodeBlockHeader filename="calculate.js" />
+              <CodeBlockContent code={exampleCode} lang="javascript" />
+            </CodeBlock>
           </section>
 
           {/* Diff Lines */}
