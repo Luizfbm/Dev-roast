@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Navbar, NavLogo, NavLink } from "@/components/ui/navbar";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -8,8 +11,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Blank App",
-  description: "A totally blank Next.js app",
+  title: "devroast — paste your code. get roasted.",
+  description:
+    "Drop your code and get a brutally honest review, powered by AI.",
 };
 
 export default function RootLayout({
@@ -19,7 +23,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${jetbrainsMono.variable} font-mono antialiased bg-bg-page text-text-primary`}>
+        <Navbar>
+          <NavLogo>
+            <span className="text-accent-green font-bold text-xl">&gt;</span>
+            <span className="font-medium text-[18px] text-text-primary">devroast</span>
+          </NavLogo>
+          <div className="flex items-center gap-8">
+            <Link href="/leaderboard">
+              <NavLink>leaderboard</NavLink>
+            </Link>
+            <Button variant="secondary" size="sm">Login</Button>
+          </div>
+        </Navbar>
         {children}
       </body>
     </html>
