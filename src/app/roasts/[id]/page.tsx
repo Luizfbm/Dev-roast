@@ -1,20 +1,45 @@
-import { db } from "@/db";
-import { roasts } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  CheckCircle2,
+  Info,
+  Share2,
+} from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getRoastById } from "@/app/actions/roast";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { CodeBlock } from "@/components/ui/code-block";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { ArrowLeft, Share2 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
+
+const SeverityIcon = ({ severity }: { severity: string }) => {
+  switch (severity) {
+    case "critical":
+      return <AlertTriangle className="w-4 h-4 text-accent-red" />;
+    case "warning":
+      return <Info className="w-4 h-4 text-accent-amber" />;
+    case "good":
+      return <CheckCircle2 className="w-4 h-4 text-accent-green" />;
+    default:
+      return null;
+  }
+};
+
+const VerdictLabel: Record<string, string> = {
+  needs_serious_help: "Needs Serious Help",
+  rough_around_edges: "Rough Around the Edges",
+  decent_code: "Decent Code",
+  solid_work: "Solid Work",
+  exceptional: "Exceptional",
+};
 
 export default async function RoastResultPage({
   params,
@@ -22,10 +47,7 @@ export default async function RoastResultPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-
-  const roast = await db.query.roasts.findFirst({
-    where: eq(roasts.id, id),
-  });
+  const roast = await getRoastById(id);
 
   if (!roast) {
     notFound();
@@ -46,7 +68,7 @@ export default async function RoastResultPage({
           <CardHeader>
             <div className="flex items-center justify-between w-full">
               <Badge variant="warning" size="lg">
-                Score: {roast.roastScore}/10
+                Score: {roast.score.toFixed(1)}/10
               </Badge>
               <span className="text-text-tertiary text-[11px] font-mono">
                 ID: {roast.id.slice(0, 8)}
@@ -54,33 +76,72 @@ export default async function RoastResultPage({
             </div>
           </CardHeader>
           <CardTitle className="text-2xl text-accent-amber capitalize">
-            {roast.roastScore >= 8
-              ? "Atomic Waste Detected"
-              : "Technical Debt Alert"}
+            {VerdictLabel[roast.verdict]}
           </CardTitle>
           <CardDescription className="text-text-primary text-base leading-relaxed italic">
-            &quot;{roast.roastFeedback}&quot;
+            &quot;{roast.roastQuote}&quot;
           </CardDescription>
         </Card>
 
-        {/* Code Block Container */}
+        {/* Analysis Items */}
+        {roast.analysisItems && roast.analysisItems.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <h3 className="text-sm font-bold text-text-primary uppercase tracking-tight">
+              // analysis_findings
+            </h3>
+            <div className="grid gap-3">
+              {roast.analysisItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-4 border border-border-primary bg-bg-surface flex flex-col gap-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <SeverityIcon severity={item.severity} />
+                    <span className="text-xs font-bold text-text-primary uppercase">
+                      {item.title}
+                    </span>
+                  </div>
+                  <p className="text-sm text-text-secondary leading-snug">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Code Block */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-accent-green font-bold text-sm">//</span>
               <h2 className="text-sm font-bold text-text-primary">
-                submitted_code
+                original_mess
               </h2>
             </div>
             <Badge variant="default" hideDot>
-              {roast.language.toUpperCase()}
+              {roast.language.toUpperCase()} ({roast.lineCount} lines)
             </Badge>
           </div>
-
           <div className="border border-border-primary overflow-hidden shadow-xl">
-            <CodeBlock code={roast.codeContent} lang={roast.language} />
+            <CodeBlock code={roast.code} lang={roast.language} />
           </div>
         </div>
+
+        {/* Suggested Fix */}
+        {roast.suggestedFix && (
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-accent-green font-bold text-sm">//</span>
+              <h2 className="text-sm font-bold text-text-primary uppercase tracking-tight">
+                suggested_redemption
+              </h2>
+            </div>
+            <div className="border border-border-primary overflow-hidden shadow-xl">
+              <CodeBlock code={roast.suggestedFix} lang={roast.language} />
+            </div>
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex items-center justify-center gap-4 mt-4">

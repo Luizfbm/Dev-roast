@@ -1,14 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { submitRoastAction } from "@/app/actions/roast";
 import { EditorBody } from "./editor/editor-body";
 import { EditorFooter } from "./editor/editor-footer";
 import { EditorHeader } from "./editor/editor-header";
 import { useLanguageDetection } from "./editor/use-language-detection";
 import { useShikiHighlight } from "./editor/use-shiki-highlight";
-
-import { submitRoastAction } from "@/app/actions/roast";
-import { useRouter } from "next/navigation";
 
 const BAD_CODE_PLACEHOLDER = `// calculating the total price
 var total = 0;

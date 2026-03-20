@@ -1,3 +1,4 @@
+import { asc, count } from "drizzle-orm";
 import Link from "next/link";
 import { CodeEditor } from "@/app/components/code-editor";
 import { Button } from "@/components/ui/button";
@@ -8,10 +9,8 @@ import {
   TableRowRank,
   TableRowScore,
 } from "@/components/ui/table-row";
-
 import { db } from "@/db";
 import { roasts } from "@/db/schema";
-import { desc, eq, count } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
@@ -19,12 +18,11 @@ export default async function HomePage() {
   const leaderboardData = await db
     .select()
     .from(roasts)
-    .where(eq(roasts.isPublic, true))
-    .orderBy(desc(roasts.roastScore))
+    .orderBy(asc(roasts.score))
     .limit(3);
 
   const [countResult] = await db.select({ value: count() }).from(roasts);
-  const totalRoasts = countResult.value.toLocaleString();
+  const totalRoasts = (countResult?.value || 0).toLocaleString();
 
   return (
     <main className="min-h-screen bg-bg-page">
@@ -102,8 +100,8 @@ export default async function HomePage() {
             {leaderboardData.map((row, index) => (
               <TableRow key={row.id}>
                 <TableRowRank>#{index + 1}</TableRowRank>
-                <TableRowScore>{row.roastScore}.0</TableRowScore>
-                <TableRowCode>{row.codeContent}</TableRowCode>
+                <TableRowScore>{row.score.toFixed(1)}</TableRowScore>
+                <TableRowCode>{row.code}</TableRowCode>
                 <TableRowLang>{row.language}</TableRowLang>
               </TableRow>
             ))}
