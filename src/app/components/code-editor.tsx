@@ -41,7 +41,10 @@ export function CodeEditor({ onSubmit }: CodeEditorProps) {
           {/* Line numbers */}
           <div className="flex flex-col items-end gap-2 px-3 py-4 border-r border-border-primary bg-secondary/30 select-none min-w-[48px]">
             {Array.from({ length: lineCount }).map((_, i) => (
-              <span key={i} className="text-text-tertiary text-[12px] leading-5">
+              <span
+                key={i}
+                className="text-text-tertiary text-[12px] leading-5"
+              >
                 {i + 1}
               </span>
             ))}

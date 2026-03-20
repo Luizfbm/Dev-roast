@@ -10,13 +10,14 @@ const button = tv({
   variants: {
     variant: {
       primary:
-        "bg-accent-green text-[#0A0A0A] font-medium hover:bg-accent-green/90",
+        "bg-accent-green text-[#0A0A0A] font-medium enabled:hover:bg-accent-green/90",
       secondary:
-        "border border-border-primary bg-transparent text-text-primary hover:bg-secondary",
-      destructive: "bg-accent-red text-white hover:bg-accent-red/90",
-      outline: "border border-border bg-transparent hover:bg-secondary",
-      ghost: "hover:bg-secondary hover:text-secondary-foreground",
-      link: "border border-border-primary bg-transparent text-text-secondary hover:text-text-primary",
+        "border border-border-primary bg-transparent text-text-primary enabled:hover:bg-secondary",
+      destructive: "bg-accent-red text-white enabled:hover:bg-accent-red/90",
+      outline: "border border-border bg-transparent enabled:hover:bg-secondary",
+      ghost:
+        "enabled:hover:bg-secondary enabled:hover:text-secondary-foreground",
+      link: "border border-border-primary bg-transparent text-text-secondary enabled:hover:text-text-primary",
     },
     size: {
       default: "py-[10px] px-[24px] text-[13px]",

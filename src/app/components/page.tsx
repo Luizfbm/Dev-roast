@@ -1,11 +1,22 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { CodeBlock } from "@/components/ui/code-block";
 import { DiffLine } from "@/components/ui/diff-line";
 import { Navbar, NavLink, NavLogo } from "@/components/ui/navbar";
 import { ScoreRing } from "@/components/ui/score-ring";
-import { TableRow } from "@/components/ui/table-row";
+import {
+  TableRow,
+  TableRowCode,
+  TableRowLang,
+  TableRowRank,
+  TableRowScore,
+} from "@/components/ui/table-row";
 import { Toggle } from "@/components/ui/toggle";
 
 export default function ComponentsPage() {
@@ -123,7 +134,9 @@ export default function ComponentsPage() {
               <Badge variant="destructive">critical</Badge>
               <Badge variant="warning">warning</Badge>
               <Badge variant="success">good</Badge>
-              <Badge variant="destructive" size="lg">needs_serious_help</Badge>
+              <Badge variant="destructive" size="lg">
+                needs_serious_help
+              </Badge>
             </div>
           </section>
 
@@ -137,20 +150,18 @@ export default function ComponentsPage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <Card className="max-w-[480px]">
-                <div className="flex items-center gap-2 mb-2">
+                <CardHeader>
                   <Badge variant="destructive" hideDot={false}>
                     critical
                   </Badge>
-                </div>
-                <h3 className="text-[13px] font-normal font-mono">
-                  using var instead of const/let
-                </h3>
-                <p className="text-[12px] text-text-secondary leading-[1.5] font-mono">
+                </CardHeader>
+                <CardTitle>using var instead of const/let</CardTitle>
+                <CardDescription>
                   the var keyword is function-scoped rather than block-scoped,
                   which can lead to unexpected behavior and bugs. modern
                   javascript uses const for immutable bindings and let for
                   mutable ones.
-                </p>
+                </CardDescription>
               </Card>
             </div>
           </section>
@@ -197,18 +208,22 @@ export default function ComponentsPage() {
               <h2 className="text-sm font-bold font-mono">table_row</h2>
             </div>
             <div className="border-t border-border-primary">
-              <TableRow
-                rank="#1"
-                score="2.1"
-                code="function calculateTotal(items) { var total = 0; ..."
-                lang="javascript"
-              />
-              <TableRow
-                rank="#2"
-                score="4.5"
-                code="const roast = (code) => analyze(code)..."
-                lang="typescript"
-              />
+              <TableRow>
+                <TableRowRank>#1</TableRowRank>
+                <TableRowScore>2.1</TableRowScore>
+                <TableRowCode>
+                  function calculateTotal(items) {"{"} var total = 0; ...
+                </TableRowCode>
+                <TableRowLang>javascript</TableRowLang>
+              </TableRow>
+              <TableRow>
+                <TableRowRank>#2</TableRowRank>
+                <TableRowScore>4.5</TableRowScore>
+                <TableRowCode>
+                  const roast = (code) ={">"} analyze(code)...
+                </TableRowCode>
+                <TableRowLang>typescript</TableRowLang>
+              </TableRow>
             </div>
           </section>
 

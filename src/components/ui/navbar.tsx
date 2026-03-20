@@ -27,11 +27,7 @@ const NavLogo = ({ children, className, ...props }: ComponentProps<"div">) => (
   </div>
 );
 
-const NavLink = ({
-  children,
-  className,
-  ...props
-}: ComponentProps<"span">) => (
+const NavLink = ({ children, className, ...props }: ComponentProps<"span">) => (
   <span className={navLink({ className })} {...props}>
     {children}
   </span>

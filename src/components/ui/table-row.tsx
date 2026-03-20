@@ -1,47 +1,54 @@
 import type { ComponentProps } from "react";
 import { tv } from "tailwind-variants";
 
-const tableRow = tv({
-  base: "flex items-center gap-6 px-5 py-4 border-b border-border-primary hover:bg-secondary/20 transition-colors",
+const tableRowStyles = tv({
+  base: "flex items-center gap-6 px-5 py-4 border-b border-border-primary enabled:hover:bg-secondary/20 transition-colors",
 });
 
-const cell = tv({
-  base: "flex items-center font-mono text-[12px]",
-  variants: {
-    type: {
-      rank: "w-10 text-text-tertiary",
-      score: "w-[60px] text-accent-red font-bold text-[13px]",
-      code: "flex-1 text-text-secondary truncate",
-      lang: "w-[100px] text-text-tertiary justify-end",
-    },
-  },
+const rankStyles = tv({
+  base: "w-10 font-mono text-[12px] text-text-tertiary shrink-0",
 });
 
-export interface TableRowProps extends ComponentProps<"div"> {
-  rank?: string;
-  score?: string;
-  code?: string;
-  lang?: string;
-}
+const scoreStyles = tv({
+  base: "w-[60px] font-mono text-accent-red font-bold text-[13px] shrink-0",
+});
 
-export const TableRow = ({
+const codeStyles = tv({
+  base: "flex-1 font-mono text-[12px] text-text-secondary truncate min-w-0",
+});
+
+const langStyles = tv({
+  base: "w-[100px] font-mono text-[12px] text-text-tertiary text-right shrink-0",
+});
+
+export const TableRow = ({ className, ...props }: ComponentProps<"div">) => (
+  <div className={tableRowStyles({ className })} {...props} />
+);
+
+export const TableRowRank = ({
   className,
-  rank,
-  score,
-  code,
-  lang,
   ...props
-}: TableRowProps) => {
-  return (
-    <div className={tableRow({ className })} {...props}>
-      {rank && <div className={cell({ type: "rank" })}>{rank}</div>}
-      {score && <div className={cell({ type: "score" })}>{score}</div>}
-      {code && (
-        <div className={cell({ type: "code" })}>
-          <span className="truncate">{code}</span>
-        </div>
-      )}
-      {lang && <div className={cell({ type: "lang" })}>{lang}</div>}
-    </div>
-  );
-};
+}: ComponentProps<"span">) => (
+  <span className={rankStyles({ className })} {...props} />
+);
+
+export const TableRowScore = ({
+  className,
+  ...props
+}: ComponentProps<"span">) => (
+  <span className={scoreStyles({ className })} {...props} />
+);
+
+export const TableRowCode = ({
+  className,
+  ...props
+}: ComponentProps<"span">) => (
+  <span className={codeStyles({ className })} {...props} />
+);
+
+export const TableRowLang = ({
+  className,
+  ...props
+}: ComponentProps<"span">) => (
+  <span className={langStyles({ className })} {...props} />
+);
