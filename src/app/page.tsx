@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { CodeEditor } from "@/app/components/code-editor";
+import { Button } from "@/components/ui/button";
 import {
   TableRow,
   TableRowCode,
@@ -6,31 +8,24 @@ import {
   TableRowRank,
   TableRowScore,
 } from "@/components/ui/table-row";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
-const LEADERBOARD_DATA = [
-  {
-    rank: "#1",
-    score: "1.2",
-    code: "function add(a, b) { var result = a + b; return result; } // lol",
-    lang: "javascript",
-  },
-  {
-    rank: "#2",
-    score: "2.1",
-    code: "SELECT * FROM users WHERE id = '" + "' + userId + '",
-    lang: "sql",
-  },
-  {
-    rank: "#3",
-    score: "3.0",
-    code: "i = 0; while True: i += 1; print(i) # no exit condition",
-    lang: "python",
-  },
-];
+import { db } from "@/db";
+import { roasts } from "@/db/schema";
+import { desc, eq, count } from "drizzle-orm";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const leaderboardData = await db
+    .select()
+    .from(roasts)
+    .where(eq(roasts.isPublic, true))
+    .orderBy(desc(roasts.roastScore))
+    .limit(3);
+
+  const [countResult] = await db.select({ value: count() }).from(roasts);
+  const totalRoasts = countResult.value.toLocaleString();
+
   return (
     <main className="min-h-screen bg-bg-page">
       <div className="max-w-[960px] mx-auto px-10 pt-20 pb-16 flex flex-col gap-8 items-center">
@@ -55,7 +50,7 @@ export default function HomePage() {
 
         {/* Footer Stats */}
         <div className="flex items-center gap-6 text-text-tertiary text-[12px] font-mono">
-          <span>2,847 codes roasted</span>
+          <span>{totalRoasts} codes roasted</span>
           <span>·</span>
           <span>avg score: 4.2/10</span>
         </div>
@@ -104,12 +99,12 @@ export default function HomePage() {
             </div>
 
             {/* Rows */}
-            {LEADERBOARD_DATA.map((row) => (
-              <TableRow key={row.rank}>
-                <TableRowRank>{row.rank}</TableRowRank>
-                <TableRowScore>{row.score}</TableRowScore>
-                <TableRowCode>{row.code}</TableRowCode>
-                <TableRowLang>{row.lang}</TableRowLang>
+            {leaderboardData.map((row, index) => (
+              <TableRow key={row.id}>
+                <TableRowRank>#{index + 1}</TableRowRank>
+                <TableRowScore>{row.roastScore}.0</TableRowScore>
+                <TableRowCode>{row.codeContent}</TableRowCode>
+                <TableRowLang>{row.language}</TableRowLang>
               </TableRow>
             ))}
           </div>
@@ -117,7 +112,7 @@ export default function HomePage() {
           {/* Footer hint */}
           <div className="flex justify-center">
             <p className="text-text-tertiary text-[12px] font-mono">
-              showing top 3 of 2,847 ·{" "}
+              showing top 3 of {totalRoasts} ·{" "}
               <Link
                 href="/leaderboard"
                 className="hover:text-text-secondary transition-colors"

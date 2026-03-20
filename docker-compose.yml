@@ -1,0 +1,15 @@
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: dev-roast-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dev_roast
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

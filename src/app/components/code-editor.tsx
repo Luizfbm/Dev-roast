@@ -1,82 +1,83 @@
 "use client";
 
-import * as React from "react";
-import { Toggle } from "@/components/ui/toggle";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { EditorBody } from "./editor/editor-body";
+import { EditorFooter } from "./editor/editor-footer";
+import { EditorHeader } from "./editor/editor-header";
+import { useLanguageDetection } from "./editor/use-language-detection";
+import { useShikiHighlight } from "./editor/use-shiki-highlight";
+
+import { submitRoastAction } from "@/app/actions/roast";
+import { useRouter } from "next/navigation";
+
+const BAD_CODE_PLACEHOLDER = `// calculating the total price
+var total = 0;
+for (var i = 0; i < items.length; i++) {
+  var item = items[i];
+  total = total + item.price * 1;
+}
+console.log("total is: " + total);`;
 
 interface CodeEditorProps {
-  onSubmit?: (code: string, roastMode: boolean) => void;
+  onSubmit?: (code: string, lang: string, roastMode: boolean) => void;
 }
 
 export function CodeEditor({ onSubmit }: CodeEditorProps) {
-  const [code, setCode] = React.useState("");
-  const [roastMode, setRoastMode] = React.useState(true);
-  const lines = code.split("\n");
-  const lineCount = Math.max(lines.length, 16);
+  const router = useRouter();
+  const [code, setCode] = useState("");
+  const [manualLang, setManualLang] = useState("auto");
+  const [roastMode, setRoastMode] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = () => {
-    if (code.trim()) {
-      onSubmit?.(code, roastMode);
+  const detectedLang = useLanguageDetection(code, manualLang);
+
+  // Use placeholder code for highlighting if editor is empty
+  const codeToHighlight = code || BAD_CODE_PLACEHOLDER;
+  const activeLang = manualLang === "auto" ? detectedLang : manualLang;
+
+  const { html: highlightedHtml } = useShikiHighlight(
+    codeToHighlight,
+    activeLang,
+  );
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const finalCode = code || BAD_CODE_PLACEHOLDER;
+
+    // Call server action
+    const result = await submitRoastAction(finalCode, activeLang, roastMode);
+
+    if (result.success && result.id) {
+      router.push(`/roasts/${result.id}`);
+    } else {
+      setIsSubmitting(false);
+      alert(result.error || "Something went wrong roasting your code.");
     }
+
+    onSubmit?.(finalCode, activeLang, roastMode);
   };
 
   return (
-    <div className="w-[780px] flex flex-col gap-4">
-      {/* Code Editor Box */}
-      <div
-        className="border border-border-primary bg-bg-input overflow-hidden"
-        style={{ height: 360 }}
-      >
-        {/* Window dots header */}
-        <div className="flex items-center h-10 px-4 border-b border-border-primary">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-accent-red" />
-            <div className="w-3 h-3 rounded-full bg-accent-amber" />
-            <div className="w-3 h-3 rounded-full bg-accent-green" />
-          </div>
-        </div>
+    <div className="w-full max-w-[780px] flex flex-col gap-0 border border-border-primary bg-bg-input overflow-hidden shadow-2xl rounded-none">
+      <EditorHeader
+        detectedLang={detectedLang}
+        manualLang={manualLang}
+        onManualLangChange={setManualLang}
+      />
 
-        {/* Editor body */}
-        <div className="flex h-[320px]">
-          {/* Line numbers */}
-          <div className="flex flex-col items-end gap-2 px-3 py-4 border-r border-border-primary bg-secondary/30 select-none min-w-[48px]">
-            {Array.from({ length: lineCount }).map((_, i) => (
-              <span
-                key={i}
-                className="text-text-tertiary text-[12px] leading-5"
-              >
-                {i + 1}
-              </span>
-            ))}
-          </div>
+      <EditorBody
+        code={code}
+        onChange={setCode}
+        highlightedHtml={highlightedHtml}
+      />
 
-          {/* Textarea */}
-          <textarea
-            className="flex-1 bg-transparent text-text-primary text-[12px] leading-5 p-4 resize-none outline-none font-mono placeholder:text-text-tertiary/60"
-            placeholder="// paste your code here..."
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            spellCheck={false}
-          />
-        </div>
-      </div>
-
-      {/* Actions Bar */}
-      <div className="flex items-center justify-between w-full">
-        <div className="flex items-center gap-4">
-          <Toggle
-            label="roast mode"
-            checked={roastMode}
-            onCheckedChange={setRoastMode}
-          />
-          <span className="text-text-tertiary text-[12px] font-mono">
-            // maximum sarcasm enabled
-          </span>
-        </div>
-
-        <Button variant="primary" onClick={handleSubmit}>
-          $ roast_my_code
-        </Button>
+      <div className="p-4 border-t border-border-primary bg-bg-surface/30">
+        <EditorFooter
+          roastMode={roastMode}
+          onRoastModeChange={setRoastMode}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
       </div>
     </div>
   );
