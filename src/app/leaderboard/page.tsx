@@ -105,11 +105,15 @@ export default function LeaderboardPage() {
               <div className="flex items-center justify-between h-12 px-5 border-b border-border-primary bg-bg-surface/50 group-hover:bg-bg-elevated transition-colors">
                 <div className="flex items-center gap-6">
                   <div className="flex items-center gap-1.5 min-w-[40px]">
-                    <span className="text-text-tertiary font-mono text-xs opacity-50">#</span>
+                    <span className="text-text-tertiary font-mono text-xs opacity-50">
+                      #
+                    </span>
                     <span
                       className={cn(
                         "font-mono text-sm font-bold",
-                        entry.rank === 1 ? "text-accent-amber" : "text-text-primary"
+                        entry.rank === 1
+                          ? "text-accent-amber"
+                          : "text-text-primary",
                       )}
                     >
                       {entry.rank}
@@ -122,7 +126,9 @@ export default function LeaderboardPage() {
                     <span
                       className={cn(
                         "font-mono text-sm font-bold",
-                        entry.score <= 3 ? "text-accent-red" : "text-accent-amber"
+                        entry.score <= 3
+                          ? "text-accent-red"
+                          : "text-accent-amber",
                       )}
                     >
                       {entry.score.toFixed(1)}

@@ -6,8 +6,21 @@ import { roasts, analysisItems } from "./schema";
 async function seed() {
   console.log("🌱 Seeding database...");
 
-  const languages = ["typescript", "javascript", "python", "go", "rust", "java"];
-  const verdicts: ("needs_serious_help" | "rough_around_edges" | "decent_code" | "solid_work" | "exceptional")[] = [
+  const languages = [
+    "typescript",
+    "javascript",
+    "python",
+    "go",
+    "rust",
+    "java",
+  ];
+  const verdicts: (
+    | "needs_serious_help"
+    | "rough_around_edges"
+    | "decent_code"
+    | "solid_work"
+    | "exceptional"
+  )[] = [
     "needs_serious_help",
     "rough_around_edges",
     "decent_code",
@@ -15,16 +28,22 @@ async function seed() {
     "exceptional",
   ];
 
-  const severities: ("critical" | "warning" | "good")[] = ["critical", "warning", "good"];
+  const severities: ("critical" | "warning" | "good")[] = [
+    "critical",
+    "warning",
+    "good",
+  ];
 
   // Clear existing data (optional, but requested by user to "populate" usually implies fresh or additional)
   // For safety in this tool, we will just ADD 100 roasts.
-  
+
   for (let i = 0; i < 100; i++) {
-    const score = Number.parseFloat(faker.number.float({ min: 0, max: 10, fractionDigits: 1 }).toFixed(1));
-    
+    const score = Number.parseFloat(
+      faker.number.float({ min: 0, max: 10, fractionDigits: 1 }).toFixed(1),
+    );
+
     // Determine verdict based on score (to match site logic)
-    let verdict: typeof verdicts[number];
+    let verdict: (typeof verdicts)[number];
     if (score <= 2) verdict = "needs_serious_help";
     else if (score <= 4) verdict = "rough_around_edges";
     else if (score <= 6) verdict = "decent_code";
@@ -35,7 +54,10 @@ async function seed() {
       const [insertedRoast] = await tx
         .insert(roasts)
         .values({
-          code: faker.commerce.productDescription() + "\n\n" + faker.lorem.paragraphs(2),
+          code:
+            faker.commerce.productDescription() +
+            "\n\n" +
+            faker.lorem.paragraphs(2),
           language: faker.helpers.arrayElement(languages),
           lineCount: faker.number.int({ min: 10, max: 500 }),
           roastMode: faker.datatype.boolean(),

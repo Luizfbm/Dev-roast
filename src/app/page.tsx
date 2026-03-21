@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table-row";
 import { db } from "@/db";
 import { roasts } from "@/db/schema";
+import { HomeStats } from "@/app/components/home-stats";
 
 export const dynamic = "force-dynamic";
 
@@ -20,9 +21,6 @@ export default async function HomePage() {
     .from(roasts)
     .orderBy(asc(roasts.score))
     .limit(3);
-
-  const [countResult] = await db.select({ value: count() }).from(roasts);
-  const totalRoasts = (countResult?.value || 0).toLocaleString();
 
   return (
     <main className="min-h-screen bg-bg-page">
@@ -47,11 +45,7 @@ export default async function HomePage() {
         <CodeEditor />
 
         {/* Footer Stats */}
-        <div className="flex items-center gap-6 text-text-tertiary text-[12px] font-mono">
-          <span>{totalRoasts} codes roasted</span>
-          <span>·</span>
-          <span>avg score: 4.2/10</span>
-        </div>
+        <HomeStats />
 
         {/* Spacer */}
         <div className="h-8" />
@@ -110,7 +104,7 @@ export default async function HomePage() {
           {/* Footer hint */}
           <div className="flex justify-center">
             <p className="text-text-tertiary text-[12px] font-mono">
-              showing top 3 of {totalRoasts} ·{" "}
+              showing top 3 ·{" "}
               <Link
                 href="/leaderboard"
                 className="hover:text-text-secondary transition-colors"

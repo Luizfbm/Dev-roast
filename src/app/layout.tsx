@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Navbar, NavLink, NavLogo } from "@/components/ui/navbar";
 
+import { TRPCReactProvider } from "@/trpc/client";
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
@@ -26,23 +28,25 @@ export default function RootLayout({
       <body
         className={`${jetbrainsMono.variable} font-mono antialiased bg-bg-page text-text-primary`}
       >
-        <Navbar>
-          <NavLogo>
-            <span className="text-accent-green font-bold text-xl">&gt;</span>
-            <span className="font-medium text-[18px] text-text-primary">
-              devroast
-            </span>
-          </NavLogo>
-          <div className="flex items-center gap-8">
-            <Link href="/leaderboard">
-              <NavLink>leaderboard</NavLink>
-            </Link>
-            <Button variant="secondary" size="sm">
-              Login
-            </Button>
-          </div>
-        </Navbar>
-        {children}
+        <TRPCReactProvider>
+          <Navbar>
+            <NavLogo>
+              <span className="text-accent-green font-bold text-xl">&gt;</span>
+              <span className="font-medium text-[18px] text-text-primary">
+                devroast
+              </span>
+            </NavLogo>
+            <div className="flex items-center gap-8">
+              <Link href="/leaderboard">
+                <NavLink>leaderboard</NavLink>
+              </Link>
+              <Button variant="secondary" size="sm">
+                Login
+              </Button>
+            </div>
+          </Navbar>
+          {children}
+        </TRPCReactProvider>
       </body>
     </html>
   );

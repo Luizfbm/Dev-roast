@@ -61,7 +61,10 @@ export default async function RoastResultPage({
       { type: "removed", text: "-     total += items[i].price;" },
       { type: "removed", text: "-   }" },
       { type: "removed", text: "-   return total;" },
-      { type: "added",   text: "+   return items.reduce((acc, item) => acc + item.price, 0);" },
+      {
+        type: "added",
+        text: "+   return items.reduce((acc, item) => acc + item.price, 0);",
+      },
       { type: "context", text: "  }" },
     ],
   } as const;
@@ -69,11 +72,10 @@ export default async function RoastResultPage({
   return (
     <main className="min-h-screen bg-bg-page pt-20 px-4 sm:px-10 lg:px-20 pb-20">
       <div className="max-w-[1280px] mx-auto flex flex-col gap-10">
-        
         {/* Score Hero Section */}
         <section className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 w-full">
           <ScoreRing score={MOCK_ROAST.score} max={10} className="shrink-0" />
-          
+
           <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 flex-1">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-accent-red shrink-0" />
@@ -81,19 +83,23 @@ export default async function RoastResultPage({
                 verdict: {MOCK_ROAST.verdict}
               </span>
             </div>
-            
+
             <h1 className="text-text-primary font-mono text-[20px] leading-[1.5] w-full max-w-[700px]">
               {MOCK_ROAST.title}
             </h1>
-            
+
             <div className="flex items-center gap-4 text-text-tertiary font-mono text-[12px]">
               <span>lang: {MOCK_ROAST.language}</span>
               <span>·</span>
               <span>{MOCK_ROAST.lineCount} lines</span>
             </div>
-            
+
             <div className="mt-2">
-              <Button variant="secondary" size="md" className="gap-2 text-[12px] h-9">
+              <Button
+                variant="secondary"
+                size="md"
+                className="gap-2 text-[12px] h-9"
+              >
                 <Share2 className="w-3.5 h-3.5" />
                 Share Result
               </Button>
@@ -114,7 +120,10 @@ export default async function RoastResultPage({
             </h2>
           </div>
           <CodeBlock className="w-full">
-            <CodeBlockContent code={MOCK_ROAST.originalCode} lang={MOCK_ROAST.language} />
+            <CodeBlockContent
+              code={MOCK_ROAST.originalCode}
+              lang={MOCK_ROAST.language}
+            />
           </CodeBlock>
         </section>
 
@@ -130,7 +139,7 @@ export default async function RoastResultPage({
               detailed_analysis
             </h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
             {MOCK_ROAST.issues.map((issue) => (
               <div
@@ -160,7 +169,7 @@ export default async function RoastResultPage({
               suggested_fix
             </h2>
           </div>
-          
+
           <div className="w-full border border-border-primary bg-bg-input overflow-hidden flex flex-col">
             <div className="h-10 border-b border-border-primary flex items-center px-4 shrink-0">
               <span className="text-text-secondary font-mono text-[12px] font-medium">
@@ -179,7 +188,6 @@ export default async function RoastResultPage({
             </div>
           </div>
         </section>
-        
       </div>
     </main>
   );

@@ -6,7 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CodeBlock, CodeBlockContent, CodeBlockHeader } from "@/components/ui/code-block";
+import {
+  CodeBlock,
+  CodeBlockContent,
+  CodeBlockHeader,
+} from "@/components/ui/code-block";
 import { DiffLine } from "@/components/ui/diff-line";
 import { Navbar, NavLink, NavLogo } from "@/components/ui/navbar";
 import { ScoreRing } from "@/components/ui/score-ring";
