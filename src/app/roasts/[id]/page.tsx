@@ -1,157 +1,185 @@
-import {
-  AlertTriangle,
-  ArrowLeft,
-  CheckCircle2,
-  Info,
-  Share2,
-} from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { getRoastById } from "@/app/actions/roast";
+import { Share2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { CodeBlock, CodeBlockContent, CodeBlockHeader } from "@/components/ui/code-block";
-
-export const dynamic = "force-dynamic";
-
-const SeverityIcon = ({ severity }: { severity: string }) => {
-  switch (severity) {
-    case "critical":
-      return <AlertTriangle className="w-4 h-4 text-accent-red" />;
-    case "warning":
-      return <Info className="w-4 h-4 text-accent-amber" />;
-    case "good":
-      return <CheckCircle2 className="w-4 h-4 text-accent-green" />;
-    default:
-      return null;
-  }
-};
-
-const VerdictLabel: Record<string, string> = {
-  needs_serious_help: "Needs Serious Help",
-  rough_around_edges: "Rough Around the Edges",
-  decent_code: "Decent Code",
-  solid_work: "Solid Work",
-  exceptional: "Exceptional",
-};
+import { CodeBlock, CodeBlockContent } from "@/components/ui/code-block";
+import { ScoreRing } from "@/components/ui/score-ring";
+import { DiffLine } from "@/components/ui/diff-line";
 
 export default async function RoastResultPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // Extract id just in case it's needed later
   const { id } = await params;
-  const roast = await getRoastById(id);
 
-  if (!roast) {
-    notFound();
+  // Mock static data strictly matching the Pencil design
+  const MOCK_ROAST = {
+    id: id,
+    score: 3.5,
+    verdict: "needs_serious_help",
+    title: `"this code looks like it was written during a power outage... in 2005."`,
+    language: "javascript",
+    lineCount: 7,
+    originalCode: `function calculateTotal(items) {
+  var total = 0;
+  for (let i = 0; i < items.length; i++) {
+    total += items[i].price;
   }
+  return total;
+}`,
+    issues: [
+      {
+        id: "1",
+        title: "var keyword usage",
+        description:
+          "the var keyword is function-scoped rather than block-scoped, which can lead to unexpected behavior and bugs. modern javascript uses const for immutable bindings and let for mutable ones.",
+      },
+      {
+        id: "2",
+        title: "mutable state",
+        description:
+          "the variable is mutated directly within a standard loop. using functional array methods like .reduce() produces cleaner, less error-prone code without explicit state mutation.",
+      },
+      {
+        id: "3",
+        title: "inefficient loop",
+        description:
+          "evaluating array length on every iteration is less optimal than caching it. although modern engines optimize this, for...of is significantly more readable.",
+      },
+      {
+        id: "4",
+        title: "magic numbers",
+        description:
+          "initializes total with 0 which is fine, but contextually lacks property types or structures. could potentially run into type coercion issues if item.price is not guaranteed to be a number.",
+      },
+    ],
+    diff: [
+      { type: "context", text: "  function calculateTotal(items) {" },
+      { type: "removed", text: "-   var total = 0;" },
+      { type: "removed", text: "-   for (let i = 0; i < items.length; i++) {" },
+      { type: "removed", text: "-     total += items[i].price;" },
+      { type: "removed", text: "-   }" },
+      { type: "removed", text: "-   return total;" },
+      { type: "added",   text: "+   return items.reduce((acc, item) => acc + item.price, 0);" },
+      { type: "context", text: "  }" },
+    ],
+  } as const;
 
   return (
-    <main className="min-h-screen bg-bg-page py-20 px-10">
-      <div className="max-w-[780px] mx-auto flex flex-col gap-8">
-        {/* Navigation */}
-        <Link href="/">
-          <Button variant="secondary" size="xs" className="gap-2">
-            <ArrowLeft className="w-3 h-3" />$ back_to_editor
-          </Button>
-        </Link>
-
-        {/* Roast Header Card */}
-        <Card className="border-accent-amber/30 bg-accent-amber/5">
-          <CardHeader>
-            <div className="flex items-center justify-between w-full">
-              <Badge variant="warning" size="lg">
-                Score: {roast.score.toFixed(1)}/10
-              </Badge>
-              <span className="text-text-tertiary text-[11px] font-mono">
-                ID: {roast.id.slice(0, 8)}
+    <main className="min-h-screen bg-bg-page pt-20 px-4 sm:px-10 lg:px-20 pb-20">
+      <div className="max-w-[1280px] mx-auto flex flex-col gap-10">
+        
+        {/* Score Hero Section */}
+        <section className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 w-full">
+          <ScoreRing score={MOCK_ROAST.score} max={10} className="shrink-0" />
+          
+          <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 flex-1">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-accent-red shrink-0" />
+              <span className="text-accent-red font-mono text-[13px] font-medium">
+                verdict: {MOCK_ROAST.verdict}
               </span>
             </div>
-          </CardHeader>
-          <CardTitle className="text-2xl text-accent-amber capitalize">
-            {VerdictLabel[roast.verdict]}
-          </CardTitle>
-          <CardDescription className="text-text-primary text-base leading-relaxed italic">
-            &quot;{roast.roastQuote}&quot;
-          </CardDescription>
-        </Card>
+            
+            <h1 className="text-text-primary font-mono text-[20px] leading-[1.5] w-full max-w-[700px]">
+              {MOCK_ROAST.title}
+            </h1>
+            
+            <div className="flex items-center gap-4 text-text-tertiary font-mono text-[12px]">
+              <span>lang: {MOCK_ROAST.language}</span>
+              <span>·</span>
+              <span>{MOCK_ROAST.lineCount} lines</span>
+            </div>
+            
+            <div className="mt-2">
+              <Button variant="secondary" size="md" className="gap-2 text-[12px] h-9">
+                <Share2 className="w-3.5 h-3.5" />
+                Share Result
+              </Button>
+            </div>
+          </div>
+        </section>
 
-        {/* Analysis Items */}
-        {roast.analysisItems && roast.analysisItems.length > 0 && (
-          <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-bold text-text-primary uppercase tracking-tight">
-              // analysis_findings
-            </h3>
-            <div className="grid gap-3">
-              {roast.analysisItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="p-4 border border-border-primary bg-bg-surface flex flex-col gap-2"
-                >
-                  <div className="flex items-center gap-2">
-                    <SeverityIcon severity={item.severity} />
-                    <span className="text-xs font-bold text-text-primary uppercase">
-                      {item.title}
-                    </span>
-                  </div>
-                  <p className="text-sm text-text-secondary leading-snug">
-                    {item.description}
-                  </p>
+        <hr className="border-t border-border-primary w-full" />
+
+        {/* Submitted Code Section */}
+        <section className="flex flex-col gap-4 w-full">
+          <div className="flex items-center gap-2">
+            <span className="text-accent-green font-mono text-[14px] font-bold">
+              //
+            </span>
+            <h2 className="text-text-primary font-mono text-[14px] font-bold">
+              your_submission
+            </h2>
+          </div>
+          <CodeBlock className="w-full">
+            <CodeBlockContent code={MOCK_ROAST.originalCode} lang={MOCK_ROAST.language} />
+          </CodeBlock>
+        </section>
+
+        <hr className="border-t border-border-primary w-full" />
+
+        {/* Analysis Section */}
+        <section className="flex flex-col gap-6 w-full">
+          <div className="flex items-center gap-2">
+            <span className="text-accent-green font-mono text-[14px] font-bold">
+              //
+            </span>
+            <h2 className="text-text-primary font-mono text-[14px] font-bold">
+              detailed_analysis
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+            {MOCK_ROAST.issues.map((issue) => (
+              <div
+                key={issue.id}
+                className="flex flex-col gap-3 p-5 border border-border-primary bg-bg-page/50"
+              >
+                <div className="text-text-primary font-mono text-[14px] font-bold">
+                  {issue.title}
                 </div>
+                <div className="text-text-secondary font-mono text-[13px] leading-relaxed">
+                  {issue.description}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <hr className="border-t border-border-primary w-full" />
+
+        {/* Diff Section */}
+        <section className="flex flex-col gap-6 w-full">
+          <div className="flex items-center gap-2">
+            <span className="text-accent-green font-mono text-[14px] font-bold">
+              //
+            </span>
+            <h2 className="text-text-primary font-mono text-[14px] font-bold">
+              suggested_fix
+            </h2>
+          </div>
+          
+          <div className="w-full border border-border-primary bg-bg-input overflow-hidden flex flex-col">
+            <div className="h-10 border-b border-border-primary flex items-center px-4 shrink-0">
+              <span className="text-text-secondary font-mono text-[12px] font-medium">
+                your_code.js → improved_code.js
+              </span>
+            </div>
+            <div className="flex flex-col py-1 overflow-x-auto">
+              {MOCK_ROAST.diff.map((line, idx) => (
+                <DiffLine
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={idx}
+                  variant={line.type as "added" | "removed" | "context"}
+                  code={line.text.replace(/^[+-]\s/, "")} // Remove explicit +/- from code string as DiffLine handles prefix
+                />
               ))}
             </div>
           </div>
-        )}
-
-        {/* Code Block */}
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">//</span>
-              <h2 className="text-sm font-bold text-text-primary">
-                original_mess
-              </h2>
-            </div>
-            <Badge variant="default" hideDot>
-              {roast.language.toUpperCase()} ({roast.lineCount} lines)
-            </Badge>
-          </div>
-          <CodeBlock className="shadow-xl">
-            <CodeBlockHeader />
-            <CodeBlockContent code={roast.code} lang={roast.language} />
-          </CodeBlock>
-        </div>
-
-        {/* Suggested Fix */}
-        {roast.suggestedFix && (
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-accent-green font-bold text-sm">//</span>
-              <h2 className="text-sm font-bold text-text-primary uppercase tracking-tight">
-                suggested_redemption
-              </h2>
-            </div>
-            <CodeBlock className="shadow-xl">
-              <CodeBlockHeader />
-              <CodeBlockContent code={roast.suggestedFix} lang={roast.language} />
-            </CodeBlock>
-          </div>
-        )}
-
-        {/* Actions */}
-        <div className="flex items-center justify-center gap-4 mt-4">
-          <Button variant="primary" className="gap-2">
-            <Share2 className="w-4 h-4" />
-            Share Roast
-          </Button>
-        </div>
+        </section>
+        
       </div>
     </main>
   );
