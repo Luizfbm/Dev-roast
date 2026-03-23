@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import NumberFlow from "@number-flow/react";
 import { HomeLeaderboardRow } from "./home-leaderboard-row";
+import { cacheLife } from "next/cache";
 
 export async function HomeLeaderboard() {
+  "use cache";
+  cacheLife({ expire: 3600 });
+
   // Chamada de API direto no servidor usando as procedures do tRPC sem overhead HTTP
   const [leaderboardData, statsData] = await Promise.all([
     caller.leaderboard.list({ limit: 3 }),

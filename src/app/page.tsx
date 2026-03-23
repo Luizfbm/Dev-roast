@@ -4,8 +4,6 @@ import { HomeLeaderboard } from "@/app/components/home-leaderboard";
 import { HomeLeaderboardSkeleton } from "@/app/components/home-leaderboard-skeleton";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
-
 export default async function HomePage() {
   return (
     <main className="min-h-screen bg-bg-page">

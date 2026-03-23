@@ -77,6 +77,8 @@ export async function CodeBlockContent({
   lang = "typescript",
   className,
 }: CodeBlockContentProps) {
+  "use cache";
+
   const html = await codeToHtml(code, {
     lang,
     theme: "vesper",
