@@ -97,7 +97,7 @@ export default async function RoastResultPage({
             <div className="mt-2">
               <Button
                 variant="secondary"
-                size="md"
+                size="default"
                 className="gap-2 text-[12px] h-9"
               >
                 <Share2 className="w-3.5 h-3.5" />
