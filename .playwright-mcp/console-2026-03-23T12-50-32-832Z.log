@@ -17387,3 +17387,245 @@ Ecmascript file had an error @ http://localhost:3000/_next/static/chunks/0kd0_ne
     at processFullBinaryRow (http://localhost:3000/_next/static/chunks/0kd0_next_dist_compiled_react-server-dom-turbopack_0bisz.s._.js:2393:9)
     at processBinaryChunk (http://localhost:3000/_next/static/chunks/0kd0_next_dist_compiled_react-server-dom-turbopack_0bisz.s._.js:2502:221)
     at progress (http://localhost:3000/_next/static/chunks/0kd0_next_dist_compiled_react-server-dom-turbopack_0bisz.s._.js:2689:13)
+[ 2768776ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_0n6g-61._.js:3766
+[ 2769156ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_0n6g-61._.js:3766
+[ 2769158ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_0n6g-61._.js:3766
+[ 2769217ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/leaderboard?_rsc=1nue2:0
+[ 2769296ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/leaderboard?_rsc=1nue2:0
+[ 2769433ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/leaderboard?_rsc=1nue2:0
+[ 2769436ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_0n6g-61._.js:3766
+[ 2769466ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/leaderboard:0
+[ 2769705ms] Error: ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+    at <unknown> (Error: ./src/trpc/routers/roast.ts:5:1)
+    at <unknown> (https://nextjs.org/docs/messages/module-not-found)
+    at Object.getCompilationErrors (file:///Users/luiz_fbm/Documents/Programacao/Dev-roast/node_modules/.pnpm/next@16.2.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/dev/hot-reloader-turbopack.js:1189:59)
+    at DevBundlerService.getCompilationError (file:///Users/luiz_fbm/Documents/Programacao/Dev-roast/node_modules/.pnpm/next@16.2.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/lib/dev-bundler-service.js:44:55)
+    at DevServer.getCompilationError (file:///Users/luiz_fbm/Documents/Programacao/Dev-roast/node_modules/.pnpm/next@16.2.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/dev/next-dev-server.js:719:42)
+    at DevServer.findPageComponents (file:///Users/luiz_fbm/Documents/Programacao/Dev-roast/node_modules/.pnpm/next@16.2.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/dev/next-dev-server.js:689:43)
+    at async DevServer.renderErrorToResponseImpl (file:///Users/luiz_fbm/Documents/Programacao/Dev-roast/node_modules/.pnpm/next@16.2.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/server/base-server.js:1745:26)
+[ 2769727ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_02e_ku3._.js:1945
+[ 2769727ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/leaderboard/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_02e_ku3._.js:1945
+[ 2769850ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_02e_ku3._.js:1945
+[ 2779915ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_02e_ku3._.js:1945
+[ 2780337ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_02e_ku3._.js:1945
+[ 2780402ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_02e_ku3._.js:1945
+[ 2781883ms] [ERROR] ./src/trpc/routers/roast.ts:5:1
+Module not found: Can't resolve '@google/generative-ai'
+  3 | ..., analysisItems, verdictEnum...
+  4 | ...TRPCRouter, baseProcedure } ...
+> 5 | ...GenerativeAI } from "@google...
+    |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | ...SYSTEM_PROMPT } from "@/serv...
+  7 | ...
+  8 | ...astRouter = createTRPCRouter({
+
+Import trace:
+  Server Component:
+    ./src/trpc/routers/roast.ts
+    ./src/trpc/routers/_app.ts
+    ./src/trpc/server.tsx
+    ./src/app/components/home-leaderboard.tsx
+    ./src/app/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found @ http://localhost:3000/_next/static/chunks/0kd0_next_dist_02e_ku3._.js:1945

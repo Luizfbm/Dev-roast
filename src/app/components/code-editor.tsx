@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { submitRoastAction } from "@/app/actions/roast";
+import { useMutation } from "@tanstack/react-query";
+import { useTRPC } from "@/trpc/client";
 import { EditorBody } from "./editor/editor-body";
 import { EditorFooter } from "./editor/editor-footer";
 import { EditorHeader } from "./editor/editor-header";
@@ -25,10 +26,20 @@ interface CodeEditorProps {
 
 export function CodeEditor({ onSubmit }: CodeEditorProps) {
   const router = useRouter();
+  const trpc = useTRPC();
   const [code, setCode] = useState("");
   const [manualLang, setManualLang] = useState("auto");
   const [roastMode, setRoastMode] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const createRoast = useMutation(trpc.roast.create.mutationOptions({
+    onSuccess: (data: { id: string }) => {
+      router.push(`/roasts/${data.id}`);
+      onSubmit?.(code || BAD_CODE_PLACEHOLDER, activeLang, roastMode);
+    },
+    onError: (error: any) => {
+      alert(error.message || "Something went wrong roasting your code.");
+    },
+  }));
 
   const detectedLang = useLanguageDetection(code, manualLang);
 
@@ -42,20 +53,12 @@ export function CodeEditor({ onSubmit }: CodeEditorProps) {
   );
 
   const handleSubmit = async () => {
-    setIsSubmitting(true);
     const finalCode = code || BAD_CODE_PLACEHOLDER;
-
-    // Call server action
-    const result = await submitRoastAction(finalCode, activeLang, roastMode);
-
-    if (result.success && result.id) {
-      router.push(`/roasts/${result.id}`);
-    } else {
-      setIsSubmitting(false);
-      alert(result.error || "Something went wrong roasting your code.");
-    }
-
-    onSubmit?.(finalCode, activeLang, roastMode);
+    createRoast.mutate({
+      code: finalCode,
+      language: activeLang,
+      roastMode,
+    });
   };
 
   const isOverLimit = code.length > MAX_CHARS;
@@ -79,10 +82,10 @@ export function CodeEditor({ onSubmit }: CodeEditorProps) {
           roastMode={roastMode}
           onRoastModeChange={setRoastMode}
           onSubmit={handleSubmit}
-          isSubmitting={isSubmitting}
+          isSubmitting={createRoast.isPending}
           charCount={code.length}
           maxChars={MAX_CHARS}
-          isDisabled={isOverLimit || isSubmitting}
+          isDisabled={isOverLimit || createRoast.isPending}
         />
       </div>
     </div>
